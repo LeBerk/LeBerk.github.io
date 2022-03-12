@@ -21,6 +21,10 @@ h1 {
     text-align: center; 
   }
   
+figcaption {
+    text-align: center; 
+}
+
   @keyframes bgcolor {
       0% {
           background-color: #45a3e5
