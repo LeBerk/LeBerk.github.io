@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Deall — Two Cigars. One Table. Everything Changes.</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --cream: #F2EDE3;
+  --cream-dim: #C8C0AF;
+  --cream-muted: #9A9080;
+  --black: #0A0906;
+  --off-black: #100F0C;
+  --dark: #181510;
+  --mid: #2A2520;
+  --gold: #C9A84C;
+  --gold-dim: #7A6128;
+  --gold-pale: #E8D48A;
+  --ember: #8B3A1A;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Montserrat', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--cream); font-family: var(--sans); font-weight: 300; overflow-x: hidden; cursor: default; }
+
+/* CURSOR */
+.cursor { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transition: transform 0.15s ease; mix-blend-mode: difference; }
+.cursor-ring { width: 32px; height: 32px; border: 0.5px solid rgba(201,168,76,0.4); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: transform 0.4s ease, width 0.3s, height 0.3s; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.6rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(to bottom, rgba(10,9,6,0.97) 0%, transparent 100%);
+}
+.nav-brand { display: flex; flex-direction: column; gap: 0.15rem; text-decoration: none; }
+.nav-brand-main { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.08em; color: var(--cream); line-height: 1; }
+.nav-brand-main span { color: var(--gold); }
+.nav-brand-sub { font-size: 0.52rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream-muted); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 80%, rgba(139,58,26,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(139,58,26,0.08) 0%, transparent 50%);
+}
+
+.hero-smoke {
+  position: absolute; inset: 0; overflow: hidden; pointer-events: none;
+}
+
+.smoke-col {
+  position: absolute; bottom: 0;
+  width: 1px; background: linear-gradient(to top, rgba(201,168,76,0.15), transparent);
+  animation: smokeRise var(--dur) ease-in-out var(--delay) infinite;
+}
+
+@keyframes smokeRise {
+  0% { height: 0; opacity: 0; transform: translateX(0) scaleX(1); }
+  20% { opacity: 1; }
+  80% { opacity: 0.3; }
+  100% { height: 60vh; opacity: 0; transform: translateX(var(--drift)) scaleX(2); }
+}
+
+.hero-content { position: relative; text-align: center; max-width: 1000px; padding: 0 2rem; }
+
+.hero-overline {
+  font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 2.5rem; opacity: 0;
+  animation: fadeUp 1s ease 0.3s both;
+}
+
+.hero-title {
+  font-family: var(--serif); font-weight: 300; line-height: 0.95;
+  color: var(--cream); margin-bottom: 0.6rem; letter-spacing: -0.01em;
+  opacity: 0; animation: fadeUp 1.2s ease 0.5s both;
+}
+
+.hero-title-top { font-size: clamp(4rem, 10vw, 9rem); display: block; }
+.hero-title-the { font-size: clamp(1.5rem, 3vw, 2.5rem); display: block; font-style: italic; color: var(--cream-dim); letter-spacing: 0.2em; margin-bottom: 0.3rem; }
+.hero-title-ll { font-size: clamp(4rem, 10vw, 9rem); display: block; color: var(--gold); font-style: italic; }
+
+.hero-rule {
+  width: 60px; height: 0.5px; background: var(--gold-dim);
+  margin: 2rem auto; opacity: 0; animation: fadeIn 1s ease 0.9s both;
+}
+
+.hero-tagline {
+  font-family: var(--serif); font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-style: italic; font-weight: 300; color: var(--cream-dim);
+  line-height: 1.6; max-width: 620px; margin: 0 auto 3rem;
+  opacity: 0; animation: fadeUp 1s ease 1s both;
+}
+
+.hero-sub {
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--cream-muted); opacity: 0; animation: fadeUp 1s ease 1.2s both;
+}
+
+.hero-scroll-line {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  padding-bottom: 2rem; opacity: 0; animation: fadeIn 1s ease 1.8s both;
+}
+.hero-scroll-line span { font-size: 0.5rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--cream-muted); writing-mode: vertical-rl; }
+.scroll-thread { width: 0.5px; height: 50px; background: linear-gradient(to bottom, var(--gold-dim), transparent); animation: threadPulse 2.5s ease-in-out infinite; }
+@keyframes threadPulse { 0%,100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+/* SECTIONS BASE */
+.section { padding: 8rem 4rem; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+
+.label {
+  font-size: 0.58rem; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem;
+}
+.label::before { content: ''; display: block; width: 24px; height: 0.5px; background: var(--gold-dim); flex-shrink: 0; }
+
+.heading {
+  font-family: var(--serif); font-weight: 400; line-height: 1.1;
+  color: var(--cream);
+}
+.heading em { font-style: italic; color: var(--gold); }
+
+.body { font-size: 0.87rem; line-height: 2; color: var(--cream-dim); margin-bottom: 1.4rem; }
+
+/* ORIGIN */
+.origin { background: var(--off-black); border-top: 0.5px solid var(--mid); border-bottom: 0.5px solid var(--mid); }
+.origin-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; }
+
+.origin-number {
+  font-family: var(--serif); font-size: 18rem; font-weight: 300;
+  color: rgba(201,168,76,0.06); line-height: 1; user-select: none;
+  position: absolute; top: -3rem; left: -2rem; pointer-events: none;
+}
+
+.origin-left { position: relative; }
+
+.origin-quote {
+  border-left: 1px solid var(--gold-dim); padding-left: 2.5rem; margin-top: 3rem;
+}
+.origin-quote blockquote {
+  font-family: var(--serif); font-size: 1.5rem; font-style: italic;
+  font-weight: 300; line-height: 1.55; color: var(--cream); margin-bottom: 0.8rem;
+}
+.origin-quote cite { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-muted); font-style: normal; }
+
+/* DIVIDER */
+.div-line { display: flex; align-items: center; gap: 2rem; padding: 0 4rem; }
+.div-l { flex: 1; height: 0.5px; background: var(--mid); }
+.div-d { width: 5px; height: 5px; background: var(--gold-dim); transform: rotate(45deg); flex-shrink: 0; }
+
+/* VISION — THE ROMANTIC SECTION */
+.vision { position: relative; overflow: hidden; }
+
+.vision-bg-text {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--serif); font-size: 22vw; font-weight: 600;
+  color: rgba(201,168,76,0.025); white-space: nowrap; pointer-events: none;
+  letter-spacing: -0.02em;
+}
+
+.vision-inner { max-width: 1100px; margin: 0 auto; position: relative; }
+
+.vision-hero-text {
+  font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300; line-height: 1.2; color: var(--cream);
+  margin-bottom: 5rem; max-width: 800px;
+}
+.vision-hero-text em { font-style: italic; color: var(--gold); }
+
+.vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--mid); }
+
+.vision-card {
+  background: var(--dark); padding: 3.5rem 3rem;
+  position: relative; overflow: hidden; transition: background 0.4s;
+}
+.vision-card::before {
+  content: attr(data-num);
+  position: absolute; top: 1.5rem; right: 2rem;
+  font-family: var(--serif); font-size: 5rem; font-weight: 300;
+  color: rgba(201,168,76,0.06); line-height: 1; pointer-events: none;
+}
+.vision-card:hover { background: #1E1A14; }
+.vision-card-label { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+.vision-card-heading { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: 1.2rem; line-height: 1.2; }
+.vision-card-body { font-size: 0.84rem; line-height: 1.95; color: var(--cream-dim); }
+
+.vision-bottom { margin-top: 6rem; display: grid; grid-template-columns: 1.2fr 1fr; gap: 7rem; align-items: center; }
+
+.vision-manifesto {
+  font-family: var(--serif); font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  font-weight: 300; font-style: italic; line-height: 1.6;
+  color: var(--cream); border-left: 1px solid var(--gold-dim); padding-left: 2.5rem;
+}
+.vision-manifesto em { color: var(--gold); font-style: normal; }
+
+.vision-pillars { display: flex; flex-direction: column; gap: 1.5px; }
+.pillar {
+  background: var(--dark); padding: 1.6rem 2rem;
+  border-left: 2px solid transparent; transition: all 0.3s;
+  display: flex; align-items: flex-start; gap: 1.5rem;
+}
+.pillar:hover { background: #1E1A14; border-left-color: var(--gold); }
+.pillar-icon { font-family: var(--serif); font-size: 1.4rem; font-style: italic; color: var(--gold); flex-shrink: 0; line-height: 1; margin-top: 0.1rem; }
+.pillar-text {}
+.pillar-name { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.3rem; }
+.pillar-desc { font-size: 0.78rem; line-height: 1.75; color: var(--cream-dim); }
+
+/* TIMELINE — THE DEAL */
+.timeline-section { background: var(--off-black); border-top: 0.5px solid var(--mid); }
+.timeline-inner { max-width: 1100px; margin: 0 auto; }
+.timeline-header { text-align: center; margin-bottom: 5rem; }
+
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 0.5px; background: linear-gradient(to bottom, transparent, var(--gold-dim) 15%, var(--gold-dim) 85%, transparent); }
+
+.tl-item { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 0; margin-bottom: 4rem; align-items: start; }
+.tl-item:last-child { margin-bottom: 0; }
+
+.tl-content { padding: 0 3rem; }
+.tl-content.right { padding: 0 3rem; }
+.tl-content.left { text-align: right; }
+.tl-content.right { }
+
+.tl-dot { display: flex; align-items: flex-start; justify-content: center; padding-top: 0.4rem; }
+.tl-dot-inner { width: 10px; height: 10px; border: 1px solid var(--gold); background: var(--gold-dim); transform: rotate(45deg); flex-shrink: 0; }
+
+.tl-phase { font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.tl-heading { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--cream); margin-bottom: 0.7rem; line-height: 1.2; }
+.tl-body { font-size: 0.82rem; line-height: 1.9; color: var(--cream-dim); }
+
+/* SHOWREEL / EPISODES */
+.episodes-section { padding: 8rem 4rem; }
+.episodes-inner { max-width: 1100px; margin: 0 auto; }
+.episodes-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; }
+.episodes-heading { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 400; line-height: 1.1; color: var(--cream); }
+.episodes-heading em { font-style: italic; color: var(--gold); }
+.link-arr { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 0.5rem; transition: gap 0.3s; }
+.link-arr:hover { gap: 0.9rem; }
+
+.ep-feature {
+  background: var(--dark); display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; overflow: hidden; border: 0.5px solid var(--mid);
+  text-decoration: none; transition: border-color 0.4s;
+}
+.ep-feature:hover { border-color: var(--gold-dim); }
+
+.ep-visual {
+  background: var(--off-black); padding: 4rem;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 320px; position: relative; overflow: hidden;
+}
+.ep-visual::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 80%, rgba(201,168,76,0.08) 0%, transparent 70%);
+}
+.ep-monogram { font-family: var(--serif); font-size: 7rem; font-style: italic; font-weight: 300; color: rgba(201,168,76,0.2); position: relative; z-index: 1; }
+
+.ep-content { padding: 3.5rem; display: flex; flex-direction: column; justify-content: center; }
+.ep-num-tag { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.ep-guest-name { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--cream); margin-bottom: 0.3rem; line-height: 1.1; }
+.ep-guest-role { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream-muted); margin-bottom: 1.8rem; }
+.ep-excerpt { font-size: 0.85rem; line-height: 1.9; color: var(--cream-dim); margin-bottom: 2rem; }
+.ep-watch { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); border-bottom: 0.5px solid var(--gold-dim); padding-bottom: 0.2rem; transition: gap 0.3s; }
+.ep-feature:hover .ep-watch { gap: 0.9rem; }
+
+/* PLATFORMS */
+.platforms { background: var(--dark); border-top: 0.5px solid var(--mid); border-bottom: 0.5px solid var(--mid); padding: 1.4rem 4rem; display: flex; align-items: center; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+.plat-label { font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--cream-muted); }
+.plat-dot { width: 3px; height: 3px; background: var(--mid); border-radius: 50%; }
+.plat-link { display: flex; align-items: center; gap: 0.45rem; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; border-bottom: 0.5px solid transparent; padding-bottom: 1px; }
+.plat-link:hover { color: var(--gold); border-bottom-color: var(--gold-dim); }
+.pico { width: 15px; height: 15px; fill: currentColor; }
+
+/* ABOUT HOST */
+.host-section { padding: 8rem 4rem; }
+.host-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem; align-items: start; }
+.host-left-name { font-family: var(--serif); font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 300; line-height: 0.95; color: var(--cream); margin-bottom: 0.5rem; }
+.host-left-title { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0; }
+
+/* CREDO */
+.credo {
+  position: relative; padding: 7rem 4rem; text-align: center; overflow: hidden;
+  background: var(--off-black); border-top: 0.5px solid var(--mid);
+}
+.credo-text {
+  font-family: var(--serif); font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 300; line-height: 1.45; color: var(--cream); max-width: 900px; margin: 0 auto;
+}
+.credo-text em { font-style: italic; color: var(--gold); }
+.credo-text strong { font-weight: 400; }
+
+/* FOOTER */
+footer { padding: 2.5rem 4rem; border-top: 0.5px solid var(--mid); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-brand { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--gold); letter-spacing: 0.08em; }
+.footer-copy { font-size: 0.6rem; color: var(--cream-muted); letter-spacing: 0.08em; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-link { font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; transition: color 0.3s; }
+.footer-link:hover { color: var(--gold); }
+
+/* ANIMATIONS */
+@keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.reveal { opacity:0; transform:translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.on { opacity:1; transform:translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 1.5rem; }
+  .nav-links { display: none; }
+  .section { padding: 5rem 1.5rem; }
+  .origin-inner, .vision-bottom, .host-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .vision-grid { grid-template-columns: 1fr; }
+  .timeline::before { display: none; }
+  .tl-item { grid-template-columns: 1fr; }
+  .tl-dot { display: none; }
+  .tl-content.left { text-align: left; }
+  .ep-feature { grid-template-columns: 1fr; }
+  .ep-visual { min-height: 200px; padding: 3rem; }
+  .div-line { padding: 0 1.5rem; }
+  .platforms { padding: 1.2rem 1.5rem; gap: 1rem; }
+  footer { padding: 2rem 1.5rem; flex-direction: column; }
+  .origin-number { font-size: 10rem; }
+  .episodes-section { padding: 5rem 1.5rem; }
+  .episodes-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .host-section { padding: 5rem 1.5rem; }
+  .credo { padding: 5rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <span class="nav-brand-main">The Dea<span>ll</span></span>
+    <span class="nav-brand-sub">A Rêverie Society Show</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#vision">The Vision</a></li>
+    <li><a href="#episodes">Episodes</a></li>
+    <li><a href="#host">The Host</a></li>
+    <li><a href="https://www.youtube.com/@reverielux" target="_blank">Watch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-smoke" id="smokeContainer"></div>
+  <div class="hero-content">
+    <p class="hero-overline">A Rêverie Society Show</p>
+    <h1 class="hero-title">
+      <span class="hero-title-the">The</span>
+      <span class="hero-title-top">Dea<em style="font-style:italic;color:var(--gold);">ll</em></span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">It takes two cigars to make a deal happen.<br>One to think. One to celebrate.</p>
+    <p class="hero-sub">Where business, legacy, and the art of the cigar meet</p>
+  </div>
+  <div class="hero-scroll-line">
+    <div class="scroll-thread"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<div class="div-line"><div class="div-l"></div><div class="div-d"></div><div class="div-l"></div></div>
+
+<!-- ORIGIN -->
+<section class="section origin" id="about">
+  <div class="origin-inner">
+    <div class="origin-left reveal">
+      <div class="origin-number">2</div>
+      <div class="label">Why Two L's</div>
+      <h2 class="heading" style="font-size:clamp(2rem,3.5vw,3rem);margin-bottom:2rem;">The oldest deals<br>were made over<br><em>a cigar</em></h2>
+      <p class="body">The double L is not a typo. It's a philosophy. Two cigars — one for the dreaming, one for the doing. The Deall is a show about the moments that change everything, told by the people who lived them.</p>
+      <p class="body">Every empire, every partnership, every billion-dollar handshake had a room. A table. A conversation that lasted long enough for the ash to fall twice. We're here to find those rooms and the people in them.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="origin-quote">
+        <blockquote>"The more stories he told, the more excited I got for the life I could live. That night, as the cigars slowly burned, we finally slowed down to talk about accomplishments and dreams."</blockquote>
+        <cite>Berk, Founder — Rêverie Society</cite>
+      </div>
+      <p class="body" style="margin-top:2.5rem;font-size:0.84rem;">That night in Palos Verdes — two Romeo y Juliettas, an ocean view, and a conversation that set a fire — is what The Deall is built on. The belief that the most important deals aren't just financial. They're the moments when someone shows you what's possible.</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-line"><div class="div-l"></div><div class="div-d"></div><div class="div-l"></div></div>
+
+<!-- VISION -->
+<section class="section vision" id="vision">
+  <div class="vision-bg-text">RÊVERIE</div>
+  <div class="vision-inner">
+
+    <div class="reveal">
+      <div class="label">The Vision</div>
+      <h2 class="vision-hero-text">
+        Imagine a room where Thomas Edison and a 25-year-old founder sit across the same table. Where a deal is sealed not with a handshake alone — but with <em>the slow burn of something shared</em>.
+      </h2>
+    </div>
+
+    <div class="vision-grid reveal">
+      <div class="vision-card" data-num="I">
+        <div class="vision-card-label">The Gathering Place</div>
+        <div class="vision-card-heading">Where Generations<br>Meet</div>
+        <div class="vision-card-body">Young men see older men as the future version of themselves. Older men see young men as their legacy continuing. Rêverie lounges exist at that meeting point — where the 28-year-old founder and the 58-year-old CEO share the same ash tray, the same silence, and sometimes the same vision. The cigar is the great equalizer.</div>
+      </div>
+      <div class="vision-card" data-num="II">
+        <div class="vision-card-label">The Sanctuary</div>
+        <div class="vision-card-heading">A Refuge for<br>Those Who Lead</div>
+        <div class="vision-card-body">In a world where everything is instant — from food to news to entertainment — cigars are one of the only things left that force you to slow down. Rêverie is built on that pause. A sanctuary where ambition exhales. Where the Napoleon Bonapartes, Da Vincis, and Steve Jobs of today come to dream without interruption.</div>
+      </div>
+      <div class="vision-card" data-num="III">
+        <div class="vision-card-label">The Conversation</div>
+        <div class="vision-card-heading">Where Deals<br>Are Born</div>
+        <div class="vision-card-body">The world's most consequential decisions have rarely happened in boardrooms. They happened in the in-between — over dinner, in the car, at the table after everyone else has left. Rêverie recreates that atmosphere deliberately. The lounge is the room where the conversation goes deeper than it would anywhere else.</div>
+      </div>
+      <div class="vision-card" data-num="IV">
+        <div class="vision-card-label">The Culture</div>
+        <div class="vision-card-heading">A Temple of<br>Masculine Craft</div>
+        <div class="vision-card-body">The way car garages became cultural for gearheads — our lounge becomes that for thinkers, dreamers, and builders. Not a club of exclusion, but of aspiration. A place that makes you more ambitious when the entire world tells you to be less. Membership is earned by the quality of your character, not your net worth.</div>
+      </div>
+    </div>
+
+    <div class="vision-bottom reveal">
+      <div class="vision-manifesto">
+        To be the place where <em>billion-dollar enterprises</em> are dreamt of, built, and celebrated. Where future and current world leaders come together to sign deals — then light up to celebrate. Where the cigar burns long enough for the real conversation to begin.
+      </div>
+      <div class="vision-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">Now</div>
+          <div class="pillar-text">
+            <div class="pillar-name">The Media</div>
+            <div class="pillar-desc">The Deall and the Rêverie Cigars Show — stories that build the brand, the audience, and the relationships everything else is built on.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">Next</div>
+          <div class="pillar-text">
+            <div class="pillar-name">The Lounges</div>
+            <div class="pillar-desc">A global network of premium cigar lounges across New York, Dubai, London, Paris — membership-driven sanctuaries for those who lead.</div>
+          </div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">∞</div>
+          <div class="pillar-text">
+            <div class="pillar-name">Seed to Cigar</div>
+            <div class="pillar-desc">Owning the entire story — growing, making, and selling our own blends, with technology woven into every step from the farm to the final cut.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="div-line"><div class="div-l"></div><div class="div-d"></div><div class="div-l"></div></div>
+
+<!-- EPISODES -->
+<section class="episodes-section" id="episodes">
+  <div class="episodes-inner">
+    <div class="episodes-header reveal">
+      <h2 class="episodes-heading">The<br><em>Conversations</em></h2>
+      <a href="https://www.youtube.com/@reverielux" target="_blank" class="link-arr">All Episodes →</a>
+    </div>
+    <a href="https://www.youtube.com/@reverielux" target="_blank" class="ep-feature reveal">
+      <div class="ep-visual" style="background:#0A0906;display:flex;align-items:center;justify-content:center;">
+        <img src="data:image/jpeg;base64,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" alt="Jorge Armenteros" style="width:72%;height:auto;object-fit:contain;opacity:0.9;display:block;border:0.5px solid rgba(201,168,76,0.1);">
+      </div>
+      <div class="ep-content">
+        <div class="ep-num-tag">Episode 01 · Rêverie Cigars Show</div>
+        <div class="ep-guest-name">Jorge Armenteros</div>
+        <div class="ep-guest-role">Founder, Tobacconist University</div>
+        <div class="ep-excerpt">The man who built the world's first formal cigar education institution on what it means to pursue mastery — and why the industry needed a standard worth carrying forward. An origin story for the ages.</div>
+        <div class="ep-watch">Watch Episode →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<div class="platforms">
+  <span class="plat-label">Listen on</span>
+  <div class="plat-dot"></div>
+  <a href="https://www.youtube.com/@reverielux" target="_blank" class="plat-link">
+    <svg class="pico" viewBox="0 0 24 17"><path d="M23.5 2.5C23.2 1.4 22.4 0.6 21.3 0.3 19.4 0 12 0 12 0S4.6 0 2.7 0.3C1.6 0.6 0.8 1.4 0.5 2.5 0 4.4 0 8.5 0 8.5S0 12.6 0.5 14.5C0.8 15.6 1.6 16.4 2.7 16.7 4.6 17 12 17 12 17S19.4 17 21.3 16.7C22.4 16.4 23.2 15.6 23.5 14.5 24 12.6 24 8.5 24 8.5S24 4.4 23.5 2.5ZM9.6 12.1V4.9L15.8 8.5 9.6 12.1Z"/></svg>
+    YouTube
+  </a>
+  <div class="plat-dot"></div>
+  <a href="https://open.spotify.com/show/7mKVJIMvqm6P2y2BW5G0U4?si=bacf4b4c697742d1" target="_blank" class="plat-link">
+    <svg class="pico" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+    Spotify
+  </a>
+  <div class="plat-dot"></div>
+  <a href="https://podcasts.apple.com/search?term=reverie+cigars" target="_blank" class="plat-link">
+    <svg class="pico" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4zm0 20c-3.314 0-6.254-1.604-8.1-4.084C4.755 16.116 6.32 15 8.174 15h7.652c1.854 0 3.42 1.116 4.274 2.916C18.254 20.396 15.314 22 12 22z"/></svg>
+    Apple Podcasts
+  </a>
+  <div class="plat-dot"></div>
+  <a href="https://podcasts.google.com/search/reverie%20cigars" target="_blank" class="plat-link">
+    <svg class="pico" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-4H7l5-8v4h4l-5 8z"/></svg>
+    All Platforms
+  </a>
+</div>
+
+<div class="div-line"><div class="div-l"></div><div class="div-d"></div><div class="div-l"></div></div>
+
+<!-- HOST -->
+<section class="host-section" id="host">
+  <div class="host-inner">
+    <div class="reveal">
+      <div class="label">The Host</div>
+      <div class="host-left-name">Berk</div>
+      <div class="host-left-title">Founder · Certified Cigar Sommelier</div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p class="body">At 16, over two Romeo y Juliettas brought straight from Cuba, Berk had a conversation that changed everything. A successful entrepreneur across the table told stories from South America — and in the slow burn of that evening, ambition took on a new shape. That night became the seed of Rêverie.</p>
+      <p class="body">Before Rêverie, Berk built businesses from age 13, helped take a startup to a $2.5M VC-backed exit, and hosted a podcast interviewing figures like Geoff Ralston, former president of Y Combinator, alongside early investors in Facebook, Pinterest, Lyft, and Palantir.</p>
+      <p class="body" style="color:var(--cream-dim);">He earned his sommelier certification through Tobacconist University. He started Rêverie because he believes the cigar table is where the real world happens — and The Deall is his invitation for you to pull up a chair.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CREDO -->
+<section class="credo">
+  <div class="reveal">
+    <p class="credo-text">
+      In a world where everything is instant — <em>the cigar demands patience</em>. It will not be rushed. It cannot be skipped. And in that slowness, something rare happens: <strong>people actually talk</strong>. Rêverie exists for that moment. The Deall exists to find the people who live in it.
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">The Deall · Rêverie Society</div>
+  <div class="footer-copy">© 2025 Rêverie Society. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@reverielux" target="_blank" class="footer-link">YouTube</a>
+    <a href="https://open.spotify.com/show/7mKVJIMvqm6P2y2BW5G0U4?si=bacf4b4c697742d1" target="_blank" class="footer-link">Spotify</a>
+    <a href="https://podcasts.apple.com/search?term=reverie+cigars" target="_blank" class="footer-link">Apple Podcasts</a>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 3}px, ${my - 3}px)`;
+  ring.style.transform = `translate(${mx - 16}px, ${my - 16}px)`;
+});
+
+// Smoke
+const smokeContainer = document.getElementById('smokeContainer');
+const drifts = [-20,-12,-6,0,6,12,20];
+[15,30,48,65,80].forEach((pct, i) => {
+  const el = document.createElement('div');
+  el.className = 'smoke-col';
+  el.style.cssText = `left:${pct}%;--dur:${4+i*0.8}s;--delay:${i*0.6}s;--drift:${drifts[i%drifts.length]}px`;
+  smokeContainer.appendChild(el);
+});
+
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
