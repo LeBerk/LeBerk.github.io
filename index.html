@@ -13,9 +13,9 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --cream: #F2EDE3;
-  --cream-dim: #C8C0AF;
-  --cream-muted: #9A9080;
+  --cream: #FCFAF5;
+  --cream-dim: #ECE7DC;
+  --cream-muted: #C4BDAF;
   --black: #0A0906;
   --off-black: #100F0C;
   --dark: #181510;
@@ -370,6 +370,7 @@ footer { padding: 2.5rem 4rem; border-top: 0.5px solid var(--mid); display: flex
     <li><a href="#episodes">Episodes</a></li>
     <li><a href="#host">The Host</a></li>
     <li><a href="cortes.html" style="color:var(--gold);">The Cigars</a></li>
+    <li><a href="#invest">Invest</a></li>
     <li><a href="https://www.youtube.com/@reverielux" target="_blank">Watch</a></li>
   </ul>
 </nav>
@@ -578,17 +579,35 @@ footer { padding: 2.5rem 4rem; border-top: 0.5px solid var(--mid); display: flex
   </div>
 </section>
 
-  <!-- NEWSLETTER -->
-<section style="background:var(--off-black);border-top:0.5px solid var(--mid);padding:6rem 4rem;text-align:center;">
-  <div style="max-width:580px;margin:0 auto;">
-    <div style="font-size:0.58rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:1.4rem;">Keep the Ember Lit</div>
-    <h2 style="font-family:var(--serif);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:300;color:var(--cream);line-height:1.2;margin-bottom:1rem;">The vision is just<br><em style="font-style:italic;color:var(--gold);">getting started</em></h2>
-    <p style="font-size:0.85rem;line-height:1.9;color:var(--cream-dim);margin-bottom:2.5rem;">Follow the journey — from the show to the cigar itself. Dispatches on the blends, the industry, and the conversations that matter.</p>
-    <a href="https://reverie-society.beehiiv.com/" target="_blank" style="display:inline-flex;align-items:center;gap:0.7rem;font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:1rem 2.5rem;text-decoration:none;transition:background 0.3s;" onmouseover="this.style.background='#E8C96A'" onmouseout="this.style.background='var(--gold)'">
-      <span>Subscribe to the Newsletter</span>
-      <span>→</span>
-    </a>
-    <p style="font-size:0.6rem;letter-spacing:0.15em;color:var(--cream-muted);margin-top:1.4rem;text-transform:uppercase;">No noise. Just signal.</p>
+<!-- INVEST / JOIN -->
+<section class="section" id="invest" style="background:var(--black);border-top:0.5px solid var(--mid);padding:8rem 4rem;">
+  <div style="max-width:920px;margin:0 auto;text-align:center;">
+    <div class="reveal" style="display:inline-block;">
+      <div class="label" style="justify-content:center;">Join the Founding Circle</div>
+    </div>
+    <h2 class="reveal heading" style="font-size:clamp(2.2rem,4vw,3.4rem);margin-bottom:1.8rem;line-height:1.15;">The boats are<br>already <em>burning</em></h2>
+    <p class="reveal body" style="max-width:660px;margin:0 auto 1.2rem;font-size:0.92rem;">A media empire, a cigar house, and a global network of lounges — being built right now, by the people who saw it first. The early names on this list won't just watch the Rêverie story unfold. They'll own a chapter of it.</p>
+    <p class="reveal body" style="max-width:640px;margin:0 auto 3.2rem;color:var(--cream);font-size:0.98rem;">We're opening a small number of conversations with investors and partners who move before the consensus does. If you've ever wished you'd been in the room early — this is the room, and it's early.</p>
+
+    <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--mid);max-width:760px;margin:0 auto;text-align:left;">
+      <div style="background:var(--off-black);padding:3rem 2.6rem;display:flex;flex-direction:column;">
+        <div style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">Option I</div>
+        <div style="font-family:var(--serif);font-size:1.5rem;color:var(--cream);margin-bottom:0.8rem;line-height:1.2;">Start a Conversation</div>
+        <p style="font-size:0.82rem;line-height:1.9;color:var(--cream-dim);margin-bottom:2rem;flex:1;">Tell us how you see yourself in this. Every partnership we've built started with a single, unhurried email.</p>
+        <a href="mailto:berk@reverielux.com?subject=Investing%20in%20R%C3%AAverie" style="display:inline-flex;align-items:center;gap:0.6rem;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:0.5px solid var(--gold-dim);padding-bottom:0.4rem;align-self:flex-start;transition:gap 0.3s;" onmouseover="this.style.gap='1rem'" onmouseout="this.style.gap='0.6rem'">
+          <span>berk@reverielux.com</span><span>→</span>
+        </a>
+      </div>
+      <div style="background:var(--off-black);padding:3rem 2.6rem;display:flex;flex-direction:column;">
+        <div style="font-size:0.55rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;">Option II</div>
+        <div style="font-family:var(--serif);font-size:1.5rem;color:var(--cream);margin-bottom:0.8rem;line-height:1.2;">Sit Down With Us</div>
+        <p style="font-size:0.82rem;line-height:1.9;color:var(--cream-dim);margin-bottom:2rem;flex:1;">Book thirty minutes with the founder. Bring your questions, your vision, or just your curiosity — and hear where this is going.</p>
+        <a href="https://calendly.com/berk-reverielux/30min" target="_blank" style="display:inline-flex;align-items:center;gap:0.6rem;font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:0.85rem 1.8rem;text-decoration:none;align-self:flex-start;transition:background 0.3s;" onmouseover="this.style.background='#E8C96A'" onmouseout="this.style.background='var(--gold)'">
+          <span>Book a Call</span><span>→</span>
+        </a>
+      </div>
+    </div>
+    <p class="reveal" style="font-size:0.6rem;letter-spacing:0.2em;color:var(--cream-muted);margin-top:2.4rem;text-transform:uppercase;">Fortune favors commitment.</p>
   </div>
 </section>
 
